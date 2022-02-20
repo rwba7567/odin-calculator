@@ -14,12 +14,23 @@ function divide(num1,num2){
     return num1 / num2;
 }
 function buttons(){
-    const buttons = document.querySelectorAll(".row > div")
+    const buttons = document.querySelectorAll(".row > div");
+    const display = document.querySelector("#display");
 
     buttons.forEach(button => {
-        button.addEventListener("click",function(e){
-            console.log(e.target.innerText);
-        })
+        if (button.innerText == "c")
+        {   
+            button.addEventListener("click",function(e){
+                display.innerText === "";
+                console.log("clear")
+            })
+        }
+
+        else{
+            button.addEventListener("click",function(e){
+                display.innerText += e.target.innerText;
+            })
+        }
     });
 }
 
