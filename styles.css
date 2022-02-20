@@ -1,0 +1,55 @@
+body{
+    min-height: 100vh;
+    margin:0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#content{
+    margin: 50px 0px;
+    width: 500px;
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#display{
+    flex:2;
+}
+
+.row{
+    flex:1;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.row > div{
+    width:125px;
+    margin:-1px -1px;
+}
+
+#num0{
+    width: 250px;
+}
+
+
+#footer{
+    height:50px;
+}
+
+/*Misc.*/
+.test{
+    border: 1px solid black;
+}
+
+.centered{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
