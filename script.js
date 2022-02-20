@@ -21,8 +21,8 @@ function buttons(){
         if (button.innerText == "c")
         {   
             button.addEventListener("click",function(e){
-                display.innerText === "";
-                console.log("clear")
+                display.innerText = "";
+                console.log("clear:"+ display.innerText)
             })
         }
 
