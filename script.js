@@ -29,7 +29,7 @@ function operate(string){
 
 
     //search for addition
-    //console.log("debug:"+ typeof "12".search(/[+x/-]+/g))
+    console.log("debug:"+ string)
     while (String(string).search(/[+x÷-]+/g) != -1)
     {   
         pos = string.search(/[+x÷-]+/g);
@@ -62,32 +62,44 @@ function operate(string){
     }   
 
     string = Number(string.toPrecision(9));
-    display.innerText = string;
+    largeDisplay.innerText = string;
     
 }
 
 function buttons(){
     const buttons = document.querySelectorAll(".row > div");
-    const display = document.querySelector("#display");
+    const smallDisplay = document.querySelector("#smallDisplay");
+    const largeDisplay = document.querySelector("#largeDisplay");
+
 
     buttons.forEach(button => {
         if (button.innerText == "c")
         {   
             button.addEventListener("click",function(e){
-                display.innerText = "";
+                smallDisplay.innerText = "";
+                largeDisplay.innerText = "";
             })
         }
 
         else if (button.innerText == "=")
         {   
             button.addEventListener("click",function(e){
-                operate(display.innerText);
+                smallDisplay.innerText += largeDisplay.innerText
+                operate(smallDisplay.innerText);
+            })
+        }
+
+        else if (button.innerText.search(/[+x÷-]+/g) > -1)
+        {   
+            button.addEventListener("click",function(e){
+                smallDisplay.innerText += largeDisplay.innerText + e.target.innerText
+                largeDisplay.innerText = "";
             })
         }
 
         else{
             button.addEventListener("click",function(e){
-                display.innerText += e.target.innerText;
+                largeDisplay.innerText += e.target.innerText;
             })
         }
     });

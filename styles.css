@@ -26,6 +26,22 @@ div{
 #display{
     flex-basis: 182px;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+}
+
+#smallDisplay{
+    flex-basis: calc(182px/3);
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#largeDisplay{
+    flex-basis: calc(182px*(2/3));
 }
 
 .row{
