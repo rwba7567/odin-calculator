@@ -11,7 +11,7 @@ function calculate(num1,num2,operator){
     {
         return num1*num2;
     }
-    else if (operator == "/")
+    else if (operator == "÷")
     {
         return num1/num2;
     }
@@ -58,11 +58,11 @@ function operate(string){
         console.log("Num2: " + num2);
         console.log("Operator: " + operator);
         console.log("New String: " + string);
-        console.log("/n")
-    }
+        console.log("");
+    }   
 
-        
-
+    string = Number(string.toPrecision(9));
+    display.innerText = string;
     
 }
 
