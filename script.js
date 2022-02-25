@@ -1,108 +1,81 @@
-function calculate(num1,num2,operator){
-    if (operator == "+")
-    {
-        return num1+num2;
-    }
-    else if (operator == "-")
-    {
-        return num1-num2;
-    }
-    else if (operator == "x")
-    {
-        return num1*num2;
-    }
-    else if (operator == "÷")
-    {
-        return num1/num2;
-    }
-    else{
-        return "error 1";
-    }
-}
 
-function operate(string){
-    console.log(string);
-    let pos = 0;
-    num1=false;
-    num2=false;
-    operator=false;
+const buttons = document.querySelectorAll(".row > div")
+const largeDisplay = document.querySelector("#largeDisplay")
+const smallDisplay = document.querySelector("#smallDisplay")
 
-
-    //search for addition
-    console.log("debug:"+ string)
-    while (String(string).search(/[+x÷-]+/g) != -1)
-    {   
-        pos = string.search(/[+x÷-]+/g);
-        if (pos != -1)
+buttons.forEach(button => {
+    
+    button.addEventListener("click",function(e){
+        //numerical button configurations
+        if (e.target.innerText.search(/[0123456789]+/g) > -1)
         {
-            num1 = string.slice(0,pos);
-            string = string.slice(pos);
+            largeDisplay.innerText += e.target.innerText;
+        }
 
-            operator = string.slice(0,1);
-            string = string.slice(1);
-            
-            if (string.search(/[+x÷-]+/g) == -1)
+        //Add, multiply, division button configurations
+        else if (e.target.innerText.search(/[+x/]+/g) > -1)
+        {
+            smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
+            largeDisplay.innerText = "";
+        }
+
+        //Subtract button configurations
+        else if (e.target.innerText=="-")
+        {
+            smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
+            largeDisplay.innerText = "";
+        }
+
+        //decimal point button configurations
+        else if (e.target.innerText=="-")
+        {
+            smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
+            largeDisplay.innerText = "";
+        }
+
+        //clear button configurations
+        else if (e.target.innerText=="c")
+        {
+            smallDisplay.innerText = "";
+            largeDisplay.innerText = "";
+        }
+
+        //plus-minus button configuration
+        else if (e.target.innerText=="±")
+        {   
+
+            //todo:check for potential bugs for when adding negative numbers to the equation
+            //check if value is negative
+            if (largeDisplay.innerText.slice(0,1) == "-")
             {
-                num2 = string;
-                string = calculate(Number(num1),Number(num2),operator)
+                largeDisplay.innerText = largeDisplay.innerText.slice(1);
             }
             else{
-                num2=string.slice(0,string.search(/[+x÷-]+/g));
-                string=calculate(Number(num1),Number(num2),operator)+string.slice(string.search(/[+x÷-]+/g));
+                largeDisplay.innerText = "-" + largeDisplay.innerText;
             }
-
-
-        }
-        console.log("pos: " + pos);
-        console.log("Num1: " + num1);
-        console.log("Num2: " + num2);
-        console.log("Operator: " + operator);
-        console.log("New String: " + string);
-        console.log("");
-    }   
-
-    string = Number(string.toPrecision(9));
-    largeDisplay.innerText = string;
-    
-}
-
-function buttons(){
-    const buttons = document.querySelectorAll(".row > div");
-    const smallDisplay = document.querySelector("#smallDisplay");
-    const largeDisplay = document.querySelector("#largeDisplay");
-
-
-    buttons.forEach(button => {
-        if (button.innerText == "c")
-        {   
-            button.addEventListener("click",function(e){
-                smallDisplay.innerText = "";
-                largeDisplay.innerText = "";
-            })
         }
 
-        else if (button.innerText == "=")
+        //percentage button configuration
+        else if (e.target.innerText=="%")
         {   
-            button.addEventListener("click",function(e){
-                smallDisplay.innerText += largeDisplay.innerText
-                operate(smallDisplay.innerText);
-            })
+            largeDisplay.innerText = Number(largeDisplay.innerText) * 0.01;
         }
 
-        else if (button.innerText.search(/[+x÷-]+/g) > -1)
+        //percentage button configuration
+        else if (e.target.innerText=="=")
         {   
-            button.addEventListener("click",function(e){
-                smallDisplay.innerText += largeDisplay.innerText + e.target.innerText
-                largeDisplay.innerText = "";
-            })
+            smallDisplay.innerText += largeDisplay.innerText
+            console.log(smallDisplay.innerText);
+            operate(smallDisplay.innerText);
         }
 
         else{
-            button.addEventListener("click",function(e){
-                largeDisplay.innerText += e.target.innerText;
-            })
+            console.log("Error: unknown click event occured");
         }
-    });
-}
 
-buttons();
+        
+        
+
+    })
+    
+});
