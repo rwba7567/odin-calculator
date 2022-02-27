@@ -1,3 +1,63 @@
+function operate(string){
+    //console.log("Operate: " + string)
+
+    let firstNum=0;
+    let secondNum=0;
+    let operator="";
+
+    while (string.search(/[+x÷-]+/g) > -1)
+    {
+        pos = string.search(/[+x÷-]+/g)
+        //calculate first variable and update string
+        firstNum = Number(string.slice(0,pos));
+        string = string.slice(pos);
+
+        //calculate operator variable and update string
+        operator = string.slice(0,1);
+        string = string.slice(1);
+
+        //calculate secondNum and update string
+        //if there are more operators, simplify equation
+        if (string.search(/[+x÷-]+/g) > -1){
+            secondNum = Number(string.slice(0,string.search(/[+x÷-]+/g)));
+            string = calculate(firstNum,secondNum,operator)+string.slice(string.search(/[+x÷-]+/g));
+        }
+        else{
+            secondNum = Number(string);
+            string = String(calculate(firstNum,secondNum,operator));
+        }
+
+        console.log("firstNum:" + firstNum)
+        console.log("secondNum:" + secondNum)
+        console.log("operator:" + operator)
+        console.log("string:" + string)
+        console.log("")
+    }
+}
+
+function calculate(firstNum,secondNum,operator)
+{
+    if (operator == "+")
+    {
+        return firstNum+secondNum;
+    }
+    else if (operator == "-")
+    {
+        return firstNum-secondNum;
+    }
+    else if (operator == "x")
+    {
+        return firstNum*secondNum;
+    }
+    else if (operator == "÷")
+    {
+        return firstNum/secondNum;
+    }
+    else{
+        return "Error: Unknown operator";
+    }
+}
+
 
 const buttons = document.querySelectorAll(".row > div")
 const largeDisplay = document.querySelector("#largeDisplay")
@@ -83,7 +143,6 @@ buttons.forEach(button => {
         else if (e.target.innerText=="=")
         {   
             smallDisplay.innerText += largeDisplay.innerText
-            console.log(smallDisplay.innerText);
             operate(smallDisplay.innerText);
         }
 
