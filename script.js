@@ -128,7 +128,6 @@ buttons.forEach(button => {
         else if (e.target.innerText=="±")
         {   
 
-            //todo:check for potential bugs for when adding negative numbers to the equation
             //check if value is negative
             if (largeDisplay.innerText.slice(0,1) == "-")
             {
@@ -152,11 +151,14 @@ buttons.forEach(button => {
         //percentage button configuration
         else if (e.target.innerText=="=")
         {   
-            if (lastClick != "="){
+            if(lastClick == "±"){
+                return;
+            }
+            else if (lastClick != "="){
                 smallDisplay.innerText += largeDisplay.innerText
                 operate(smallDisplay.innerText);
             }
-
+            
             lastClick = e.target.innerText;
         }
 
