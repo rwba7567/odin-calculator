@@ -13,13 +13,19 @@ buttons.forEach(button => {
         }
 
         //Add, multiply, division button configurations
-        else if (e.target.innerText.search(/[+x/]+/g) > -1)
+        else if (e.target.innerText.search(/[+x÷]+/g) > -1)
         {
             //ensure that operators are consecutively repeated
             if (largeDisplay.innerText !== "")
             {
-                smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
+                smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText);
                 largeDisplay.innerText = "";
+            }
+            //if operator are consecutively repeated last operator will be used.
+            else if (smallDisplay.innerText != "")
+            {
+                smallDisplay.innerText = smallDisplay.innerText.slice(0,-1) + e.target.innerText;
+
             }
         }
 
@@ -30,6 +36,11 @@ buttons.forEach(button => {
             {
                 smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
                 largeDisplay.innerText = "";
+            }
+            else if (smallDisplay.innerText != "")
+            {
+                smallDisplay.innerText = smallDisplay.innerText.slice(0,-1) + e.target.innerText;
+
             }
         }
 
