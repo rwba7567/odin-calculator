@@ -88,6 +88,12 @@ buttons.forEach(button => {
         //Add, multiply, division button configurations
         else if (e.target.innerText.search(/[+x÷-]+/g) > -1)
         {
+            //ensure number is not repeated when operator is selected after equal is selected.
+            if (lastClick == "="){
+                smallDisplay.innerText = largeDisplay.innerText + e.target.innerText
+                largeDisplay.innerText = ""
+            }
+
             //ensure that operators are consecutively repeated
             if (largeDisplay.innerText !== "")
             {
