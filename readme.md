@@ -1,0 +1,1 @@
+issue 1: wrong numbers displayed when operator is selected after "=" button is clicked.
