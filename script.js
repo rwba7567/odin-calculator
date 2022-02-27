@@ -8,6 +8,13 @@ function operate(string){
     while (string.search(/[+x÷-]+/g) > -1)
     {
         pos = string.search(/[+x÷-]+/g)
+
+        //ensures negative first variable won't lead to loop
+        if (pos == 0)
+        {   
+            pos = string.slice(1).search(/[+x÷-]+/g) + 1;
+        }
+
         //calculate first variable and update string
         firstNum = Number(string.slice(0,pos));
         string = string.slice(pos);
@@ -164,7 +171,7 @@ buttons.forEach(button => {
         }
 
         else{
-            console.log("Error: unknown click event occured");
+            console.log("Error: unknown click event occurred");
         }
 
         
