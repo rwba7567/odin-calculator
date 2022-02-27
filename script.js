@@ -33,6 +33,8 @@ function operate(string){
         console.log("string:" + string)
         console.log("")
     }
+
+    largeDisplay.innerText = string;
 }
 
 function calculate(firstNum,secondNum,operator)
