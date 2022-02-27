@@ -25,7 +25,7 @@ function operate(string){
 
         //calculate secondNum and update string
         //if there are more operators, simplify equation
-        if (string.search(/[+x÷-]+/g) > -1){
+        if (string.search(/[+x÷-]+/g) > 0){
             secondNum = Number(string.slice(0,string.search(/[+x÷-]+/g)));
             string = calculate(firstNum,secondNum,operator)+string.slice(string.search(/[+x÷-]+/g));
         }
