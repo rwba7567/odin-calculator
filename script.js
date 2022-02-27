@@ -65,6 +65,9 @@ const buttons = document.querySelectorAll(".row > div")
 const largeDisplay = document.querySelector("#largeDisplay")
 const smallDisplay = document.querySelector("#smallDisplay")
 
+//Track last button that was clicked.
+let lastClick = "";
+
 buttons.forEach(button => {
     
     button.addEventListener("click",function(e){
@@ -72,6 +75,7 @@ buttons.forEach(button => {
         if (e.target.innerText.search(/[0123456789]+/g) > -1)
         {
             largeDisplay.innerText += e.target.innerText;
+            lastClick = e.target.innerText;
         }
 
         //Add, multiply, division button configurations
@@ -89,6 +93,7 @@ buttons.forEach(button => {
                 smallDisplay.innerText = smallDisplay.innerText.slice(0,-1) + e.target.innerText;
 
             }
+            lastClick = e.target.innerText;
         }
 
         //Subtract button configurations
@@ -104,12 +109,14 @@ buttons.forEach(button => {
                 smallDisplay.innerText = smallDisplay.innerText.slice(0,-1) + e.target.innerText;
 
             }
+            lastClick = e.target.innerText;
         }
 
         //decimal point button configurations
         else if (e.target.innerText==".")
         {
-            largeDisplay.innerText += e.target.innerText
+            largeDisplay.innerText += e.target.innerText;
+            lastClick = e.target.innerText;
         }
 
         //clear button configurations
@@ -117,6 +124,7 @@ buttons.forEach(button => {
         {
             smallDisplay.innerText = "";
             largeDisplay.innerText = "";
+            lastClick = e.target.innerText;
         }
 
         //plus-minus button configuration
@@ -132,19 +140,27 @@ buttons.forEach(button => {
             else{
                 largeDisplay.innerText = "-" + largeDisplay.innerText;
             }
+
+            lastClick = e.target.innerText;
         }
 
         //percentage button configuration
         else if (e.target.innerText=="%")
         {   
             largeDisplay.innerText = Number(largeDisplay.innerText) * 0.01;
+
+            lastClick = e.target.innerText;
         }
 
         //percentage button configuration
         else if (e.target.innerText=="=")
         {   
-            smallDisplay.innerText += largeDisplay.innerText
-            operate(smallDisplay.innerText);
+            if (lastClick != "="){
+                smallDisplay.innerText += largeDisplay.innerText
+                operate(smallDisplay.innerText);
+            }
+
+            lastClick = e.target.innerText;
         }
 
         else{
