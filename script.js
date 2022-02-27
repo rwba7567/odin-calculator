@@ -15,15 +15,22 @@ buttons.forEach(button => {
         //Add, multiply, division button configurations
         else if (e.target.innerText.search(/[+x/]+/g) > -1)
         {
-            smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
-            largeDisplay.innerText = "";
+            //ensure that operators are consecutively repeated
+            if (largeDisplay.innerText !== "")
+            {
+                smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
+                largeDisplay.innerText = "";
+            }
         }
 
         //Subtract button configurations
         else if (e.target.innerText=="-")
         {
-            smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
-            largeDisplay.innerText = "";
+            if (largeDisplay.innerText !== "")
+            {
+                smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText)
+                largeDisplay.innerText = "";
+            }
         }
 
         //decimal point button configurations
