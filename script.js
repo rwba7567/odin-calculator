@@ -105,7 +105,7 @@ buttons.forEach(button => {
         }
 
         //decimal point button configurations
-        else if (e.target.innerText=="-")
+        else if (e.target.innerText==".")
         {
             largeDisplay.innerText += e.target.innerText
         }
