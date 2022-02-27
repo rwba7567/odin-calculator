@@ -5,7 +5,7 @@ function operate(string){
     let secondNum=0;
     let operator="";
 
-    while (string.search(/[+x÷]+/g) > -1 && string.slice(0) != "-")
+    while (string.slice(1).search(/[+x÷]+/g) > -1 )
     {
         pos = string.search(/[+x÷-]+/g)
 
