@@ -41,7 +41,7 @@ function operate(string){
         console.log("")
     }
 
-    largeDisplay.innerText = string;
+    largeDisplay.innerText = sigFig(string);
 }
 
 function calculate(firstNum,secondNum,operator)
@@ -67,6 +67,9 @@ function calculate(firstNum,secondNum,operator)
     }
 }
 
+function sigFig(x) {
+    return Number(Number(x).toPrecision(9));
+  }
 
 const buttons = document.querySelectorAll(".row > div")
 const largeDisplay = document.querySelector("#largeDisplay")
