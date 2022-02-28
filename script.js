@@ -93,6 +93,9 @@ buttons.forEach(button => {
                 smallDisplay.innerText = largeDisplay.innerText + e.target.innerText
                 largeDisplay.innerText = ""
             }
+            else if (lastClick == "±"){
+                return;
+            }
 
             //ensure that operators are consecutively repeated
             if (largeDisplay.innerText !== "")
