@@ -102,13 +102,11 @@ buttons.forEach(button => {
             else if (lastClick.search(/[+x÷-]+/g) > -1){
                 smallDisplay.innerText = smallDisplay.innerText.slice(0,-1) + e.target.innerText;
             }
-
-            //ensure that operators are consecutively repeated
-            if (largeDisplay.innerText !== "")
-            {
+            else if(lastClick.search(/[0123456789]+/g) > -1){
                 smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText);
                 largeDisplay.innerText = "";
             }
+
 
             lastClick = e.target.innerText;
         }
