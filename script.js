@@ -99,6 +99,9 @@ buttons.forEach(button => {
             else if (lastClick == "±"){
                 return;
             }
+            else if (lastClick.search(/[+x÷-]+/g) > -1){
+                smallDisplay.innerText = smallDisplay.innerText.slice(0,-1) + e.target.innerText;
+            }
 
             //ensure that operators are consecutively repeated
             if (largeDisplay.innerText !== "")
@@ -106,12 +109,7 @@ buttons.forEach(button => {
                 smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText);
                 largeDisplay.innerText = "";
             }
-            //if operator are consecutively repeated last operator will be used.
-            else if (smallDisplay.innerText != "")
-            {
-                smallDisplay.innerText = smallDisplay.innerText.slice(0,-1) + e.target.innerText;
 
-            }
             lastClick = e.target.innerText;
         }
 
