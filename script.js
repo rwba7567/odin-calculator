@@ -276,7 +276,81 @@ let equation = ""
 //Track last button that was clicked.
 let lastClick = "";
 
+//keyboard support
 document.addEventListener("keypress",function(e){
+    let key = e.key;
+
+    //selection validation
+    if (key.search(/[^0123456789=xXcC/%.-]+/g) > -1 && key != "Enter")
+    {
+        return
+    }
+
+    //numerical button configurations
+    if (key.search(/[0123456789]+/g) > -1)
+    {
+        numButton(key);
+    }
+
+    //Add, multiply, division button configurations
+    else if (key.search(/[=xX/-]+/g) > -1)
+    {
+        //addition operator
+        if (key=="=")
+        {
+           operatorBtn(document.querySelector("#additionOperator"));
+        }
+
+        //subtraction operator
+        else if (key=="-")
+        {
+           operatorBtn(document.querySelector("#subtractionOperator"));
+        }
+
+        //multiplication operator
+        else if (key=="x" || key=="X")
+        {
+           operatorBtn(document.querySelector("#multiplicationOperator"));
+        }
+        //division operator
+        else if (key=="/")
+        {
+           operatorBtn(document.querySelector("#divisionOperator"));
+        }
+        else{
+            console.log("error")
+        }
+    }
+
+    //decimal point button configurations
+    else if (key==".")
+    {
+        decimalBtn();
+    }
+
+    //clear button configurations
+    else if (key=="C" || key=="c")
+    {
+        clearBtn();
+    }
+
+    //percentage button configuration
+    else if (key=="%")
+    {   
+        percentageBtn();
+    }
+
+    //equal button configuration
+    else if (key=="Enter")
+    {   
+        equalBtn();
+    }
+
+    else{
+        console.log("Error: unknown click event occurred");
+    }
+
+
     console.log(e.key)
 })
 
@@ -305,7 +379,7 @@ buttons.forEach(button => {
         }
 
         //clear button configurations
-        else if (e.target.innerText=="C" || e.target.innerText=="AC")
+        else if (e.target.innerText=="C")
         {
             clearBtn();
         }
