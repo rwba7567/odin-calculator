@@ -85,6 +85,12 @@ body{
     color: white;
 }
 
+.operatorButtonActive{
+    color: #fd9500;
+    background-color: white;
+}
+
+
 .otherButton{
     background-color: #a6a6a6;
     color: black;

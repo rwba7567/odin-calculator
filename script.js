@@ -71,9 +71,9 @@ function sigFig(x) {
     return Number(Number(x).toPrecision(9));
   }
 
-const buttons = document.querySelectorAll(".row > div")
+const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
-const smallDisplay = document.querySelector("#smallDisplay")
+let equation = ""
 
 //Track last button that was clicked.
 let lastClick = "";
@@ -81,11 +81,20 @@ let lastClick = "";
 buttons.forEach(button => {
     
     button.addEventListener("click",function(e){
+
         //numerical button configurations
         if (e.target.innerText.search(/[0123456789]+/g) > -1)
         {
+            if (lastClick.search(/[+x÷-]+/g) > -1)
+            {
+                let operatorBtns = document.querySelectorAll(".operatorButton")
+                operatorBtns.forEach(operatorBtn => {
+                    operatorBtn.classList.remove("operatorButtonActive");
+                });
+            }
             largeDisplay.innerText += e.target.innerText;
             lastClick = e.target.innerText;
+
         }
 
         //Add, multiply, division button configurations
@@ -93,17 +102,19 @@ buttons.forEach(button => {
         {
             //ensure number is not repeated when operator is selected after equal is selected.
             if (lastClick == "="){
-                smallDisplay.innerText = largeDisplay.innerText + e.target.innerText
+                equation = largeDisplay.innerText + e.target.innerText
                 largeDisplay.innerText = ""
             }
             else if (lastClick == "±"){
                 return;
             }
             else if (lastClick.search(/[+x÷-]+/g) > -1){
-                smallDisplay.innerText = smallDisplay.innerText.slice(0,-1) + e.target.innerText;
+                equation = equation.slice(0,-1) + e.target.innerText;
             }
             else if(lastClick.search(/[0123456789]+/g) > -1){
-                smallDisplay.innerText += (largeDisplay.innerText + e.target.innerText);
+                console.log("hi")
+                e.target.classList.add("operatorButtonActive")
+                equation += (largeDisplay.innerText + e.target.innerText);
                 largeDisplay.innerText = "";
             }
 
@@ -121,7 +132,7 @@ buttons.forEach(button => {
         //clear button configurations
         else if (e.target.innerText=="c")
         {
-            smallDisplay.innerText = "";
+            equation = "";
             largeDisplay.innerText = "";
             lastClick = e.target.innerText;
         }
@@ -157,8 +168,8 @@ buttons.forEach(button => {
                 return;
             }
             else if (lastClick != "="){
-                smallDisplay.innerText += largeDisplay.innerText
-                operate(smallDisplay.innerText);
+                equation += largeDisplay.innerText
+                operate(equation);
             }
             
             lastClick = e.target.innerText;
