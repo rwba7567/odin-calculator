@@ -256,6 +256,18 @@ function percentageBtn(){
     lastClick = "%";
 }
 
+function equalBtn(){
+    if(lastClick == "±"){
+        return;
+    }
+    else if (lastClick != "="){
+        equation += largeDisplay.innerText
+        operate(equation);
+    }
+    
+    lastClick = "=";
+}
+
 const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
 let equation = ""
@@ -310,18 +322,10 @@ buttons.forEach(button => {
             percentageBtn();
         }
 
-        //percentage button configuration
+        //equal button configuration
         else if (e.target.innerText=="=")
         {   
-            if(lastClick == "±"){
-                return;
-            }
-            else if (lastClick != "="){
-                equation += largeDisplay.innerText
-                operate(equation);
-            }
-            
-            lastClick = e.target.innerText;
+            equalBtn();
         }
 
         else{
