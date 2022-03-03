@@ -129,9 +129,8 @@ function integerCount(){
 
     while (string.search(/[^0123456789]+/g) > -1)
     {
-        let pos = string.search(/[^0123456789]+/g)
-        string = string.slice(0,pos) + string.slice(pos+1)
-        console.log(string)
+        let pos = string.search(/[^0123456789]+/g);
+        string = string.slice(0,pos) + string.slice(pos+1);
     }
 
     return string.length;
@@ -201,7 +200,6 @@ buttons.forEach(button => {
                 equation = equation.slice(0,-1) + e.target.innerText;
             }
             else if(lastClick.search(/[0123456789]+/g) > -1){
-                console.log("hi")
                 e.target.classList.add("operatorButtonActive")
                 equation += (largeDisplay.innerText + e.target.innerText);
             }
@@ -213,7 +211,15 @@ buttons.forEach(button => {
         //decimal point button configurations
         else if (e.target.innerText==".")
         {
+            //animation for "clear" button
             document.querySelector("#clear").innerText = "C";
+
+            //only allow for one decimal point
+            if (largeDisplay.innerText.search(/[.]+/g) > -1)
+            {
+                return
+            }
+
             largeDisplay.innerText += e.target.innerText;
             lastClick = e.target.innerText;
         }
