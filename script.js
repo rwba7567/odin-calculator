@@ -250,6 +250,12 @@ function plusMinusBtn(){
     lastClick = "±";
 }
 
+function percentageBtn(){
+    largeDisplay.innerText = sigFig(largeDisplay.innerText * 0.01);
+
+    lastClick = "%";
+}
+
 const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
 let equation = ""
@@ -301,9 +307,7 @@ buttons.forEach(button => {
         //percentage button configuration
         else if (e.target.innerText=="%")
         {   
-            largeDisplay.innerText = sigFig(largeDisplay.innerText * 0.01);
-
-            lastClick = e.target.innerText;
+            percentageBtn();
         }
 
         //percentage button configuration
