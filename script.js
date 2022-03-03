@@ -157,7 +157,7 @@ buttons.forEach(button => {
         //percentage button configuration
         else if (e.target.innerText=="%")
         {   
-            largeDisplay.innerText = Number(largeDisplay.innerText) * 0.01;
+            largeDisplay.innerText = sigFig(largeDisplay.innerText * 0.01);
 
             lastClick = e.target.innerText;
         }
