@@ -81,11 +81,13 @@ function formatDisplay(){
     let string = largeDisplay.innerText;
     let negStatus = false;
 
-    if (string.search(".") > -1)
+    //if number is a decimal, do not format
+    if (string.search(/[.]+/g) > -1)
     {
-        return
+        return;
     }
 
+    //if number is a negative, convert number to positive before formatting (will convert back in line 119)
     if (string.slice(0,1) == "-" && string.length > 1)
     {
         negStatus = true;
@@ -113,10 +115,12 @@ function formatDisplay(){
         string = string.slice(0,length - 6) + "," + string.slice(length - 6,length-3)+ "," + string.slice(length-3)
     }
 
+    //convert number back to negative if number was originally negative
     if (negStatus == true)
     {
         string = "-" + string;
     }
+
     largeDisplay.innerText = string;
 }
 
