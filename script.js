@@ -136,6 +136,61 @@ function integerCount(){
     return string.length;
 }
 
+function numButton(num){
+    let length = integerCount();
+
+    document.querySelector("#clear").innerText = "C";
+            
+    //prevent integer overflow
+    if (length >= 9 && lastClick.search(/[+x÷-]+/g) == -1)
+    {
+        return;
+    } 
+
+    //if operator was last clicked
+    if (lastClick.search(/[+x÷-]+/g) > -1)
+    {
+        let operatorBtns = document.querySelectorAll(".operatorButton")
+        operatorBtns.forEach(operatorBtn => {
+            operatorBtn.classList.remove("operatorButtonActive");
+        });
+
+        largeDisplay.innerText = "";
+    }
+
+    if (lastClick == "±"){
+        largeDisplay.innerText = "-" + num;
+    }
+    else{
+        largeDisplay.innerText += num;
+    }
+
+    lastClick = num;
+}
+
+function operatorBtn(button){
+    let operator = button.innerText
+
+    //ensure number is not repeated when operator is selected after equal is selected.
+    if (lastClick == "="){
+        equation = largeDisplay.innerText + operator;
+        largeDisplay.innerText = "";
+    }
+    else if (lastClick == "±"){
+        return;
+    }
+    else if (lastClick.search(/[+x÷-]+/g) > -1){
+        equation = equation.slice(0,-1) + operator;
+    }
+    else if(lastClick.search(/[0123456789]+/g) > -1){
+        button.classList.add("operatorButtonActive")
+        equation += (largeDisplay.innerText + operator);
+    }
+
+
+    lastClick = operator;
+}
+
 const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
 let equation = ""
@@ -144,68 +199,28 @@ let equation = ""
 //Track last button that was clicked.
 let lastClick = "";
 
+document.addEventListener("keypress",function(e){
+    console.log(e.key)
+})
+
 buttons.forEach(button => {
     
     button.addEventListener("click",function(e){
 
-        let length = integerCount();
+        //let length = integerCount();
 
         //console.log("No. of integers: " + length);
 
         //numerical button configurations
         if (e.target.innerText.search(/[0123456789]+/g) > -1)
         {
-            document.querySelector("#clear").innerText = "C";
-            
-            //prevent integer overflow
-            if (length >= 9 && lastClick.search(/[+x÷-]+/g) == -1)
-            {
-                return;
-            } 
-
-            //if operator was last clicked
-            if (lastClick.search(/[+x÷-]+/g) > -1)
-            {
-                let operatorBtns = document.querySelectorAll(".operatorButton")
-                operatorBtns.forEach(operatorBtn => {
-                    operatorBtn.classList.remove("operatorButtonActive");
-                });
-
-                largeDisplay.innerText = "";
-            }
-
-            if (lastClick == "±"){
-                largeDisplay.innerText = "-" + e.target.innerText;
-            }
-            else{
-                largeDisplay.innerText += e.target.innerText;
-            }
-
-            lastClick = e.target.innerText;
-
+            numButton(e.target.innerText)
         }
 
         //Add, multiply, division button configurations
         else if (e.target.innerText.search(/[+x÷-]+/g) > -1)
         {
-            //ensure number is not repeated when operator is selected after equal is selected.
-            if (lastClick == "="){
-                equation = largeDisplay.innerText + e.target.innerText;
-                largeDisplay.innerText = "";
-            }
-            else if (lastClick == "±"){
-                return;
-            }
-            else if (lastClick.search(/[+x÷-]+/g) > -1){
-                equation = equation.slice(0,-1) + e.target.innerText;
-            }
-            else if(lastClick.search(/[0123456789]+/g) > -1){
-                e.target.classList.add("operatorButtonActive")
-                equation += (largeDisplay.innerText + e.target.innerText);
-            }
-
-
-            lastClick = e.target.innerText;
+            operatorBtn(e.target)
         }
 
         //decimal point button configurations
