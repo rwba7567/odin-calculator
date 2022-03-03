@@ -1,9 +1,15 @@
 function operate(string){
-    //console.log("Operate: " + string)
-
     let firstNum=0;
     let secondNum=0;
     let operator="";
+
+    //clean string of commas first
+    while (string.search(",") > -1)
+    {
+        let pos = string.search(",")
+        string = string.slice(0,pos) + string.slice(pos+1)
+        console.log("clean string: "+string)
+    }
 
     while (string.slice(1).search(/[+x÷-]+/g) > -1 )
     {
@@ -109,10 +115,23 @@ function formatDisplay(){
     largeDisplay.innerText = string;
 }
 
+function integerCount(){
+    let string = largeDisplay.innerText;
+
+    while (string.search(/[^0123456789]+/g) > -1)
+    {
+        let pos = string.search(/[^0123456789]+/g)
+        string = string.slice(0,pos) + string.slice(pos+1)
+        console.log(string)
+    }
+
+    return string.length;
+}
+
 const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
 let equation = ""
-let integerCount = 0;
+
 
 //Track last button that was clicked.
 let lastClick = "";
@@ -120,14 +139,23 @@ let lastClick = "";
 buttons.forEach(button => {
     
     button.addEventListener("click",function(e){
-        if (integerCount >= 9){
-            return
-        }
+
+        let length = integerCount();
+
+        //console.log("No. of integers: " + length);
 
         //numerical button configurations
         if (e.target.innerText.search(/[0123456789]+/g) > -1)
         {
             document.querySelector("#clear").innerText = "C";
+            
+            //prevent integer overflow
+            if (length >= 9 && lastClick.search(/[+x÷-]+/g) == -1)
+            {
+                return;
+            } 
+
+            //if operator was last clicked
             if (lastClick.search(/[+x÷-]+/g) > -1)
             {
                 let operatorBtns = document.querySelectorAll(".operatorButton")
@@ -140,11 +168,9 @@ buttons.forEach(button => {
 
             if (lastClick == "±"){
                 largeDisplay.innerText = "-" + e.target.innerText;
-                integerCount++;
             }
             else{
                 largeDisplay.innerText += e.target.innerText;
-                integerCount++;
             }
 
             lastClick = e.target.innerText;
@@ -169,7 +195,6 @@ buttons.forEach(button => {
                 console.log("hi")
                 e.target.classList.add("operatorButtonActive")
                 equation += (largeDisplay.innerText + e.target.innerText);
-                integerCount = 0;
             }
 
 
@@ -200,8 +225,6 @@ buttons.forEach(button => {
             largeDisplay.innerText = "";
             lastClick = e.target.innerText;
             document.querySelector("#clear").innerText = "AC";
-            integerCount = 0;
-
         }
 
         //plus-minus button configuration
@@ -251,7 +274,6 @@ buttons.forEach(button => {
         }
 
         formatDisplay()
-        console.log("integerCount: " + integerCount)
     })
     
 });
