@@ -220,6 +220,23 @@ function clearBtn(){
     document.querySelector("#clear").innerText = "AC";
 }
 
+function plusMinusBtn(){
+    if (lastClick.search(/[+x÷-]+/g) > -1){
+        largeDisplay.innerText = "0";
+    }
+
+    //check if value is negative
+    if (largeDisplay.innerText.slice(0,1) == "-")
+    {
+        largeDisplay.innerText = largeDisplay.innerText.slice(1);
+    }
+    else{
+        largeDisplay.innerText = "-" + largeDisplay.innerText;
+    }
+
+    lastClick = "±";
+}
+
 const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
 let equation = ""
@@ -265,21 +282,7 @@ buttons.forEach(button => {
         //plus-minus button configuration
         else if (e.target.innerText=="±")
         {   
-            if (lastClick.search(/[+x÷-]+/g) > -1){
-                console.log("test")
-                largeDisplay.innerText = "0";
-            }
-
-            //check if value is negative
-            if (largeDisplay.innerText.slice(0,1) == "-")
-            {
-                largeDisplay.innerText = largeDisplay.innerText.slice(1);
-            }
-            else{
-                largeDisplay.innerText = "-" + largeDisplay.innerText;
-            }
-
-            lastClick = e.target.innerText;
+            plusMinusBtn();
         }
 
         //percentage button configuration
