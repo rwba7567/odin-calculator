@@ -205,6 +205,21 @@ function decimalBtn(){
     lastClick = ".";
 }
 
+function clearBtn(){
+    if (lastClick == "C"){
+        let operatorBtns = document.querySelectorAll(".operatorButton")
+
+        operatorBtns.forEach(operatorBtn => {
+        operatorBtn.classList.remove("operatorButtonActive");
+        });
+    }
+
+    equation = "";
+    largeDisplay.innerText = "";
+    lastClick = "C";
+    document.querySelector("#clear").innerText = "AC";
+}
+
 const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
 let equation = ""
@@ -222,8 +237,6 @@ buttons.forEach(button => {
     button.addEventListener("click",function(e){
 
         //let length = integerCount();
-
-        //console.log("No. of integers: " + length);
 
         //numerical button configurations
         if (e.target.innerText.search(/[0123456789]+/g) > -1)
@@ -246,19 +259,7 @@ buttons.forEach(button => {
         //clear button configurations
         else if (e.target.innerText=="C" || e.target.innerText=="AC")
         {
-
-            if (lastClick == "C"){
-                let operatorBtns = document.querySelectorAll(".operatorButton")
-
-                operatorBtns.forEach(operatorBtn => {
-                operatorBtn.classList.remove("operatorButtonActive");
-                });
-            }
-
-            equation = "";
-            largeDisplay.innerText = "";
-            lastClick = e.target.innerText;
-            document.querySelector("#clear").innerText = "AC";
+            clearBtn();
         }
 
         //plus-minus button configuration
