@@ -91,6 +91,8 @@ buttons.forEach(button => {
                 operatorBtns.forEach(operatorBtn => {
                     operatorBtn.classList.remove("operatorButtonActive");
                 });
+
+                largeDisplay.innerText = "";
             }
             largeDisplay.innerText += e.target.innerText;
             lastClick = e.target.innerText;
@@ -115,7 +117,6 @@ buttons.forEach(button => {
                 console.log("hi")
                 e.target.classList.add("operatorButtonActive")
                 equation += (largeDisplay.innerText + e.target.innerText);
-                largeDisplay.innerText = "";
             }
 
 
