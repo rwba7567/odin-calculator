@@ -147,6 +147,19 @@ function numButton(num){
         return;
     } 
 
+    if(largeDisplay.innerText == "0")
+    {
+        if (num == 0)
+        {
+            document.querySelector("#clear").innerText = "AC";
+            return
+        }
+        else
+        {
+            largeDisplay.innerText = "";
+        }
+    }
+
     //if operator was last clicked
     if (lastClick.search(/[+x÷-]+/g) > -1)
     {
@@ -215,7 +228,7 @@ function clearBtn(){
     }
 
     equation = "";
-    largeDisplay.innerText = "";
+    largeDisplay.innerText = "0";
     lastClick = "C";
     document.querySelector("#clear").innerText = "AC";
 }
