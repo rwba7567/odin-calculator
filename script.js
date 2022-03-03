@@ -82,9 +82,11 @@ buttons.forEach(button => {
     
     button.addEventListener("click",function(e){
 
+
         //numerical button configurations
         if (e.target.innerText.search(/[0123456789]+/g) > -1)
         {
+            document.querySelector("#clear").innerText = "C";
             if (lastClick.search(/[+x÷-]+/g) > -1)
             {
                 let operatorBtns = document.querySelectorAll(".operatorButton")
@@ -100,7 +102,7 @@ buttons.forEach(button => {
             else{
                 largeDisplay.innerText += e.target.innerText;
             }
-            
+
             lastClick = e.target.innerText;
 
         }
@@ -132,22 +134,28 @@ buttons.forEach(button => {
         //decimal point button configurations
         else if (e.target.innerText==".")
         {
+            document.querySelector("#clear").innerText = "C";
             largeDisplay.innerText += e.target.innerText;
             lastClick = e.target.innerText;
         }
 
         //clear button configurations
-        else if (e.target.innerText=="c")
+        else if (e.target.innerText=="C" || e.target.innerText=="AC")
         {
 
-            let operatorBtns = document.querySelectorAll(".operatorButton")
-            operatorBtns.forEach(operatorBtn => {
+            if (lastClick == "C"){
+                let operatorBtns = document.querySelectorAll(".operatorButton")
+
+                operatorBtns.forEach(operatorBtn => {
                 operatorBtn.classList.remove("operatorButtonActive");
-            });
+                });
+            }
 
             equation = "";
             largeDisplay.innerText = "";
             lastClick = e.target.innerText;
+            document.querySelector("#clear").innerText = "AC";
+
         }
 
         //plus-minus button configuration
