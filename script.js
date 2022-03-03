@@ -94,7 +94,13 @@ buttons.forEach(button => {
 
                 largeDisplay.innerText = "";
             }
-            largeDisplay.innerText += e.target.innerText;
+            else if (lastClick == "±"){
+                largeDisplay.innerText = "-" + e.target.innerText;
+            }
+            else{
+                largeDisplay.innerText += e.target.innerText;
+            }
+            
             lastClick = e.target.innerText;
 
         }
@@ -133,6 +139,12 @@ buttons.forEach(button => {
         //clear button configurations
         else if (e.target.innerText=="c")
         {
+
+            let operatorBtns = document.querySelectorAll(".operatorButton")
+            operatorBtns.forEach(operatorBtn => {
+                operatorBtn.classList.remove("operatorButtonActive");
+            });
+
             equation = "";
             largeDisplay.innerText = "";
             lastClick = e.target.innerText;
@@ -141,6 +153,10 @@ buttons.forEach(button => {
         //plus-minus button configuration
         else if (e.target.innerText=="±")
         {   
+            if (lastClick.search(/[+x÷-]+/g) > -1){
+                console.log("test")
+                largeDisplay.innerText = "0";
+            }
 
             //check if value is negative
             if (largeDisplay.innerText.slice(0,1) == "-")
