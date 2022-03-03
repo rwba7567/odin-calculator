@@ -81,6 +81,11 @@ function formatDisplay(){
     let string = largeDisplay.innerText;
     let negStatus = false;
 
+    if (string.search(".") > -1)
+    {
+        return
+    }
+
     if (string.slice(0,1) == "-" && string.length > 1)
     {
         negStatus = true;
