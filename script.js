@@ -71,9 +71,48 @@ function sigFig(x) {
     return Number(Number(x).toPrecision(9));
   }
 
+function formatDisplay(){
+    let string = largeDisplay.innerText;
+    let negStatus = false;
+
+    if (string.slice(0,1) == "-" && string.length > 1)
+    {
+        negStatus = true;
+        string = string.slice(1)
+    }
+
+
+    //remove any separators
+    while (string.search(",") >= 0)
+    {
+        let sepPos = string.search(",");
+        string = string.slice(0,sepPos) + string.slice(sepPos+1);  
+    }
+
+    let length = string.length;
+
+    //separator for string of length 4-6
+    if (string.length >= 4 && string.length <= 6)
+    {
+        string = string.slice(0,length - 3) + "," + string.slice(length - 3)
+    }
+    //separator for string of length 4-6
+    else if (string.length >= 7)
+    {
+        string = string.slice(0,length - 6) + "," + string.slice(length - 6,length-3)+ "," + string.slice(length-3)
+    }
+
+    if (negStatus == true)
+    {
+        string = "-" + string;
+    }
+    largeDisplay.innerText = string;
+}
+
 const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
 let equation = ""
+let integerCount = 0;
 
 //Track last button that was clicked.
 let lastClick = "";
@@ -81,11 +120,8 @@ let lastClick = "";
 buttons.forEach(button => {
     
     button.addEventListener("click",function(e){
-
-        //Prevent integer overflow
-        if (largeDisplay.innerText.length >= 9)
-        {
-            return;
+        if (integerCount >= 9){
+            return
         }
 
         //numerical button configurations
@@ -101,11 +137,14 @@ buttons.forEach(button => {
 
                 largeDisplay.innerText = "";
             }
-            else if (lastClick == "±"){
+
+            if (lastClick == "±"){
                 largeDisplay.innerText = "-" + e.target.innerText;
+                integerCount++;
             }
             else{
                 largeDisplay.innerText += e.target.innerText;
+                integerCount++;
             }
 
             lastClick = e.target.innerText;
@@ -117,8 +156,8 @@ buttons.forEach(button => {
         {
             //ensure number is not repeated when operator is selected after equal is selected.
             if (lastClick == "="){
-                equation = largeDisplay.innerText + e.target.innerText
-                largeDisplay.innerText = ""
+                equation = largeDisplay.innerText + e.target.innerText;
+                largeDisplay.innerText = "";
             }
             else if (lastClick == "±"){
                 return;
@@ -130,6 +169,7 @@ buttons.forEach(button => {
                 console.log("hi")
                 e.target.classList.add("operatorButtonActive")
                 equation += (largeDisplay.innerText + e.target.innerText);
+                integerCount = 0;
             }
 
 
@@ -160,6 +200,7 @@ buttons.forEach(button => {
             largeDisplay.innerText = "";
             lastClick = e.target.innerText;
             document.querySelector("#clear").innerText = "AC";
+            integerCount = 0;
 
         }
 
@@ -208,6 +249,9 @@ buttons.forEach(button => {
         else{
             console.log("Error: unknown click event occurred");
         }
+
+        formatDisplay()
+        console.log("integerCount: " + integerCount)
     })
     
 });
