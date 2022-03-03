@@ -24,6 +24,7 @@ body{
 .grid-container{
     display: grid; 
     grid-template-columns: auto auto auto auto; 
+    grid-template-rows: 180px auto auto auto auto auto; 
     justify-content: center;
     align-content: center;
     gap:10px;
@@ -52,9 +53,11 @@ body{
     grid-column-end: 5;
 
     width:auto;
-    height:50px;
 
     color: white;
+
+    font-size: 64px;
+    place-self: end end;
 }
 
 #num0{

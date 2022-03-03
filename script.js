@@ -82,6 +82,11 @@ buttons.forEach(button => {
     
     button.addEventListener("click",function(e){
 
+        //Prevent integer overflow
+        if (largeDisplay.innerText.length >= 9)
+        {
+            return;
+        }
 
         //numerical button configurations
         if (e.target.innerText.search(/[0123456789]+/g) > -1)
