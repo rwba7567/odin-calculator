@@ -350,7 +350,7 @@ document.addEventListener("keypress",function(e){
         console.log("Error: unknown click event occurred");
     }
 
-
+    formatDisplay()
     console.log(e.key)
 })
 
