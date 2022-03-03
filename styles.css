@@ -5,64 +5,90 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
-}
 
-div{
-    border: 1px solid black;
+
 }
 
 #content{
-    margin: 50px calc((100vw - 500px)/2);
-    width: 500px;
+    margin-top: calc((100vh - 50px - 400px)/2);
+    width:300px;
 
-    flex-grow: 1;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch
+    align-self: center;
 }
 
-#display{
-    flex-basis: 182px;
+#content > div{
+    border: 1px solid black;
+}
 
-    display: flex;
-    flex-direction: column;
+.grid-container{
+    display: grid; 
+    grid-template-columns: auto auto auto auto; 
     justify-content: center;
-    align-items: stretch;
+    align-content: center;
+    gap:10px;
+    
+    box-sizing: border-box;
+    height: 400px;
+    width: fit-content;
+    padding: 5px; 
+    border:1px solid black;
+
+    background-color: black;
+    
 }
 
-#smallDisplay{
-    flex-basis: calc(182px/3);
+.grid-item{
+    box-sizing: border-box;
 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
 }
 
 #largeDisplay{
-    flex-basis: calc(182px*(2/3));
-}
+    grid-column-start: 1;
+    grid-column-end: 5;
 
-.row{
-    flex-grow:1;
-
-    display: flex;
-    flex-direction: row;
-}
-
-.row > div{
-    width:125px;
-    margin:-1px -1px;
+    width:auto;
+    height:50px;
 }
 
 #num0{
-    width: 250px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+    width: auto;
+}
+
+.button{
+    height:50px;
+    width:50px;
+
+    border:1px solid black;
+    border-radius: 50px;
+}
+
+.numButton{
+    background-color: #333333;
+    color: white;
+}
+
+.operatorButton{
+    background-color: #fd9500;
+    color: white;
+}
+
+.otherButtons{
+    background-color: #a6a6a6;
+    color: black;
 }
 
 
 #footer{
     height:50px;
+    bottom: 0;
 }
 
 /*Misc.*/
