@@ -191,6 +191,20 @@ function operatorBtn(button){
     lastClick = operator;
 }
 
+function decimalBtn(){
+    //animation for "clear" button
+    document.querySelector("#clear").innerText = "C";
+
+    //only allow for one decimal point
+    if (largeDisplay.innerText.search(/[.]+/g) > -1)
+    {
+        return
+    }
+
+    largeDisplay.innerText += ".";
+    lastClick = ".";
+}
+
 const buttons = document.querySelectorAll(".button")
 const largeDisplay = document.querySelector("#largeDisplay")
 let equation = ""
@@ -214,29 +228,19 @@ buttons.forEach(button => {
         //numerical button configurations
         if (e.target.innerText.search(/[0123456789]+/g) > -1)
         {
-            numButton(e.target.innerText)
+            numButton(e.target.innerText);
         }
 
         //Add, multiply, division button configurations
         else if (e.target.innerText.search(/[+x÷-]+/g) > -1)
         {
-            operatorBtn(e.target)
+            operatorBtn(e.target);
         }
 
         //decimal point button configurations
         else if (e.target.innerText==".")
         {
-            //animation for "clear" button
-            document.querySelector("#clear").innerText = "C";
-
-            //only allow for one decimal point
-            if (largeDisplay.innerText.search(/[.]+/g) > -1)
-            {
-                return
-            }
-
-            largeDisplay.innerText += e.target.innerText;
-            lastClick = e.target.innerText;
+            decimalBtn();
         }
 
         //clear button configurations
