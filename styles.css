@@ -6,7 +6,8 @@ body{
     flex-direction: column;
     justify-content: space-between;
 
-
+    font-family: 'Roboto',sans-serif;
+    font-size: 32px;
 }
 
 #content{
