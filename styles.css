@@ -4,17 +4,17 @@ body{
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 
     font-family: 'Roboto',sans-serif;
     font-size: 32px;
 }
 
 #content{
-    margin-top: calc((100vh - 50px - 400px)/2);
-    width:300px;
-
     align-self: center;
+
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 #content > div{
@@ -29,9 +29,9 @@ body{
     gap:10px;
     
     box-sizing: border-box;
-    height: 400px;
+    height: fit-content;
     width: fit-content;
-    padding: 5px; 
+    padding: 20px; 
     border:1px solid black;
 
     background-color: black;
@@ -40,11 +40,9 @@ body{
 
 .grid-item{
     box-sizing: border-box;
-
-    background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
+    padding: 50px;
+    font-size: 64px;
     text-align: center;
 }
 
@@ -54,6 +52,8 @@ body{
 
     width:auto;
     height:50px;
+
+    color: white;
 }
 
 #num0{
@@ -61,14 +61,17 @@ body{
     grid-column-end: 3;
 
     width: auto;
+
+    display: flex;
+    align-items: center;
 }
 
 .button{
-    height:50px;
-    width:50px;
+    height:64px;
+    width:64px;
 
     border:1px solid black;
-    border-radius: 50px;
+    border-radius: 64px;
 }
 
 .numButton{
@@ -89,7 +92,7 @@ body{
 
 #footer{
     height:50px;
-    bottom: 0;
+    margin-top: auto;
 }
 
 /*Misc.*/
